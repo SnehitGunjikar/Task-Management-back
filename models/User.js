@@ -35,6 +35,8 @@ const User = sequelize.define('User', {
   }
 });
 
+// Association will be set in server.js after both models are imported
+
 User.prototype.validatePassword = async function(password) {
   return bcrypt.compare(password, this.password);
 };

@@ -3,15 +3,23 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const sequelize = require('./config/database');
+const User = require('./models/User');
+const Task = require('./models/Task');
 const authRoutes = require('./routes/auth');
 const taskRoutes = require('./routes/tasks');
 
 const app = express();
 
+// Set up associations
+User.hasMany(Task, { foreignKey: 'UserId' });
+Task.belongsTo(User, { foreignKey: 'UserId' });
+
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
+  origin: 'http://localhost:3000',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,8 +51,7 @@ const PORT = process.env.PORT || 5000;
 async function startServer() {
   try {
     // Force: true will drop the table if it already exists
-    // In production, you might want to set this to false
-    await sequelize.sync({ force: process.env.NODE_ENV !== 'production' });
+    await sequelize.sync({ force: true });
     console.log('Database connected successfully.');
     
     app.listen(PORT, () => {

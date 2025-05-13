@@ -42,4 +42,6 @@ const Task = sequelize.define('Task', {
   }
 });
 
+// Association will be set in server.js after both models are imported
+
 module.exports = Task; 
