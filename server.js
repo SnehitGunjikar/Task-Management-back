@@ -9,7 +9,10 @@ const taskRoutes = require('./routes/tasks');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -23,6 +26,11 @@ if (!fs.existsSync('uploads')) {
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -34,7 +42,9 @@ const PORT = process.env.PORT || 5000;
 
 async function startServer() {
   try {
-    await sequelize.sync();
+    // Force: true will drop the table if it already exists
+    // In production, you might want to set this to false
+    await sequelize.sync({ force: process.env.NODE_ENV !== 'production' });
     console.log('Database connected successfully.');
     
     app.listen(PORT, () => {
@@ -42,6 +52,7 @@ async function startServer() {
     });
   } catch (error) {
     console.error('Unable to connect to the database:', error);
+    process.exit(1);
   }
 }
 
