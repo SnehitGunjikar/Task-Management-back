@@ -1,21 +1,21 @@
 # Task Management App Backend
 
-A Node.js and Express backend for the Task Management App, using MongoDB for data storage.
+A Node.js and Express backend for the Task Management App, using MySQL for data storage.
 
-backend render link: https://task-management-back-qqaj.onrender.com
+backend on render link: https://task-management-back-qqaj.onrender.com
 
 ## Features
 
 - User authentication (register/login) with JWT
 - CRUD operations for tasks
 - Secure API endpoints
-- MongoDB integration
+- MySQL integration
 
 ## Prerequisites
 
 - Node.js (v14 or higher)
 - npm or yarn
-- MongoDB (local or Atlas)
+- MySQL (v8 or higher)
 
 ## Setup Instructions
 
@@ -33,7 +33,10 @@ backend render link: https://task-management-back-qqaj.onrender.com
 3. Create a `.env` file in the `backend` directory with the following variables:
    ```
    PORT=5000
-   MONGODB_URI=<your-mongodb-connection-string>
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=your_password
+   DB_NAME=task_management
    JWT_SECRET=<your-jwt-secret>
    ```
 
