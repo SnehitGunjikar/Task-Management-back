@@ -1,83 +1,63 @@
-# Task Management Frontend
+# Task Management App Backend
 
-A React-based frontend for the Task Management application. This application provides a user-friendly interface for managing tasks, including features like task creation, editing, deletion, and bulk import/export functionality.
+A Node.js and Express backend for the Task Management App, using MongoDB for data storage.
 
-frontend:https://task-management-front-green.vercel.app/tasks
-backend: https://task-management-back-qqaj.onrender.com
+backend render link: https://task-management-back-qqaj.onrender.com
 
 ## Features
 
-- User authentication (login/register)
-- Task management (CRUD operations)
-- Task import/export via Excel files
-- Responsive design using Tailwind CSS
-- Form validation using React Hook Form
+- User authentication (register/login) with JWT
+- CRUD operations for tasks
+- Secure API endpoints
+- MongoDB integration
 
 ## Prerequisites
 
 - Node.js (v14 or higher)
-- npm (v6 or higher)
+- npm or yarn
+- MongoDB (local or Atlas)
 
-## Installation
+## Setup Instructions
 
 1. Clone the repository:
-```bash
-git clone <your-repository-url>
-cd task-management-frontend
-```
+   ```bash
+   git clone <repository-url>
+   cd TaskMgmtApp/backend
+   ```
 
 2. Install dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
-3. Create a `.env` file in the root directory and add the following:
-```
-REACT_APP_API_URL=http://localhost:5000/api
-```
+3. Create a `.env` file in the `backend` directory with the following variables:
+   ```
+   PORT=5000
+   MONGODB_URI=<your-mongodb-connection-string>
+   JWT_SECRET=<your-jwt-secret>
+   ```
 
-4. Start the development server:
-```bash
-npm start
-```
+4. Start the backend server:
+   ```bash
+   npm start
+   ```
 
-The application will be available at `http://localhost:3000`.
+## API Endpoints
 
-## Available Scripts
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login user
 
-- `npm start` - Runs the app in development mode
-- `npm test` - Launches the test runner
-- `npm run build` - Builds the app for production
-- `npm run eject` - Ejects from Create React App
+### Tasks
+- `GET /api/tasks` - Get all tasks
+- `POST /api/tasks` - Create a new task
+- `PUT /api/tasks/:id` - Update a task
+- `DELETE /api/tasks/:id` - Delete a task
 
-## Project Structure
+## Deployment
 
-```
-src/
-  ├── api/          # API configuration
-  ├── contexts/     # React contexts
-  ├── pages/        # Page components
-  ├── components/   # Reusable components
-  ├── App.js        # Main App component
-  └── index.js      # Entry point
-```
-
-## Technologies Used
-
-- React
-- React Router
-- React Hook Form
-- Axios
-- Tailwind CSS
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- Deployed on Render
 
 ## License
 
-This project is licensed under the MIT License.
+MIT 
